@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizza-castle-menu-service
+spec:
+  selector:
+    matchLabels:
+      name: pizza-castle-menu-service
+  template:
+    metadata:
+      labels:
+        name: pizza-castle-menu-service
+    spec:
+      containers:
+        - name: menu-service
+          image: gayankanishka/pizza-castle-menu-service:latest
+          ports:
+            - containerPort: 5000

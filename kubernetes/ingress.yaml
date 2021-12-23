@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: pizza-castle-menu-service
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    kubernetes.io/ingress.class: alb
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/vi/menu/*
+            backend:
+              serviceName: pizza-castle-menu-service
+              servicePort: 5000
+          - path: /api/vi/orders/*
+            backend:
+              serviceName: pizza-castle-ordering-service
+              servicePort: 5002
+          - path: /*
+            backend:
+              serviceName: pizza-castle-web
+              servicePort: 80

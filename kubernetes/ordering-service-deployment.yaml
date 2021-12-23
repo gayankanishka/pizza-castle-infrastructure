@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizza-castle-ordering-service
+spec:
+  selector:
+    matchLabels:
+      name: pizza-castle-ordering-service
+  template:
+    metadata:
+      labels:
+        name: pizza-castle-ordering-service
+    spec:
+      containers:
+        - name: ordering-service
+          image: gayankanishka/pizza-castle-ordering-service:latest
+          ports:
+            - containerPort: 5000

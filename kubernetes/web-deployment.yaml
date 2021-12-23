@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizza-castle-web
+spec:
+  selector:
+    matchLabels:
+      name: pizza-castle-web
+  template:
+    metadata:
+      labels:
+        name: pizza-castle-web
+    spec:
+      containers:
+        - name: web
+          image: gayankanishka/pizza-castle-web:latest
+          ports:
+            - containerPort: 3000
