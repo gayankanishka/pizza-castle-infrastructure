@@ -9,14 +9,14 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api/vi/menu/*
-            backend:
-              serviceName: pizza-castle-menu-service
-              servicePort: 5000
-          - path: /api/vi/orders/*
-            backend:
-              serviceName: pizza-castle-ordering-service
-              servicePort: 5002
+          # - path: /api/vi/menu/*
+          #   backend:
+          #     serviceName: pizza-castle-menu-service
+          #     servicePort: 5000
+          # - path: /api/vi/orders/*
+          #   backend:
+          #     serviceName: pizza-castle-ordering-service
+          #     servicePort: 5002
           - path: /*
             backend:
               serviceName: pizza-castle-web

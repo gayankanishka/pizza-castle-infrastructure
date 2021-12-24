@@ -16,3 +16,8 @@ spec:
           image: gayankanishka/pizza-castle-menu-service:latest
           ports:
             - containerPort: 5000
+          env:
+            - name: UseInMemoryDatabase
+              value: 'true'
+            - name: ASPNETCORE_ENVIRONMENT
+              value: 'Development'
