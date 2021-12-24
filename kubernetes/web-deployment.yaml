@@ -28,6 +28,6 @@ spec:
             - name: AUTH0_CLIENT_SECRET
               value: X5f4yOvgHmQlJd06jar7CFdq4zkkqaguGUgNEp904WFL2lr121QSS-Z6_qLw7RhZ
             - name: ORDER_BASE_URL
-              value: 'http://172.16.3.19:5002/api/v1/order'
+              value: 'http://pizza-castle-ordering-service.default.svc.cluster.local:5002/api/v1/order'
             - name: MENU_BASE_URL
-              value: 'http://172.16.3.142:5000/api/v1/menu'
+              value: 'http://pizza-castle-menu-service.default.svc.cluster.local:5000/api/v1/menu'
