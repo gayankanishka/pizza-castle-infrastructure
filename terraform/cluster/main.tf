@@ -131,29 +131,29 @@ resource "helm_release" "ingress" {
 
 
 resource "kubectl_manifest" "web_deployment" {
-  yaml_body = file("./../kubernetes/web-deployment.yaml")
+  yaml_body = file("./kubernetes/web-deployment.yaml")
 }
 
 resource "kubectl_manifest" "web_nodeport" {
-  yaml_body = file("./../kubernetes/web-nodeport.yaml")
+  yaml_body = file("./kubernetes/web-nodeport.yaml")
 }
 
 resource "kubectl_manifest" "menu_service_deployment" {
-  yaml_body = file("./../kubernetes/menu-service-deployment.yaml")
+  yaml_body = file("./kubernetes/menu-service-deployment.yaml")
 }
 
 resource "kubectl_manifest" "menu_service_nodeport" {
-  yaml_body = file("./../kubernetes/menu-service-nodeport.yaml")
+  yaml_body = file("./kubernetes/menu-service-nodeport.yaml")
 }
 
 resource "kubectl_manifest" "ordering_service_deployment" {
-  yaml_body = file("./../kubernetes/ordering-service-deployment.yaml")
+  yaml_body = file("./kubernetes/ordering-service-deployment.yaml")
 }
 
 resource "kubectl_manifest" "ordering_service_nodeport" {
-  yaml_body = file("./../kubernetes/ordering-service-nodeport.yaml")
+  yaml_body = file("./kubernetes/ordering-service-nodeport.yaml")
 }
 
 resource "kubectl_manifest" "pizza-castle-ingress" {
-  yaml_body = file("./../kubernetes/ingress.yaml")
+  yaml_body = file("./kubernetes/ingress.yaml")
 }
