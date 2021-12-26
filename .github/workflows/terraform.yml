@@ -29,9 +29,13 @@ jobs:
         id: init
         run: terraform init
 
+      - name: Terraform Create Workspace
+        id: create
+        run: terraform workspace new dev
+
       - name: Terraform Select Workspace
         id: select
-        run: terraform workspace select pizza-castle-dev
+        run: terraform workspace select dev
 
       - name: Terraform Validate
         id: validate
