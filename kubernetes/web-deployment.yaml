@@ -33,4 +33,3 @@ spec:
               value: 'http://pizza-castle-ordering-service.default.svc.cluster.local:5002/api/v1/order'
             - name: MENU_BASE_URL
               value: 'http://pizza-castle-menu-service.default.svc.cluster.local:5000/api/v1/menu'
-              
