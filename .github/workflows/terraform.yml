@@ -27,7 +27,7 @@ jobs:
 
       - name: Terraform Select Workspace
         id: select
-        run: terraform workspace select dev
+        run: terraform workspace select pizza-castle-dev
 
       - name: Terraform Init
         id: init
