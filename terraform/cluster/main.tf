@@ -10,6 +10,7 @@ data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
 
+
 variable "cluster_name" {
 }
 
@@ -17,7 +18,6 @@ variable "instance_type" {
 }
 
 variable "region" {
-  default = "eu-west-1"
 }
 
 provider "kubernetes" {
@@ -33,7 +33,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 2.47"
 
-  name                 = "k8s-${var.cluster_name}-vpc"
+  name                 = "${var.cluster_name}-vpc"
   cidr                 = "172.16.0.0/16"
   azs                  = data.aws_availability_zones.available.names
   private_subnets      = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
