@@ -26,6 +26,13 @@ provider "kubernetes" {
   token                  = data.aws_eks_cluster_auth.cluster.token
 }
 
+provider "kubectl" {
+  load_config_file       = false
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  token                  = data.aws_eks_cluster_auth.cluster.token
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+}
+
 data "aws_availability_zones" "available" {
 }
 
@@ -110,4 +117,34 @@ resource "helm_release" "ingress" {
     name  = "clusterName"
     value = var.cluster_name
   }
+}
+
+
+
+resource "kubectl_manifest" "web_deployment" {
+  yaml_body = file("./../kubernetes/web-deployment.yaml")
+}
+
+resource "kubectl_manifest" "web_nodeport" {
+  yaml_body = file("./../kubernetes/web-nodeport.yaml")
+}
+
+resource "kubectl_manifest" "menu_service_deployment" {
+  yaml_body = file("./../kubernetes/menu-service-deployment.yaml")
+}
+
+resource "kubectl_manifest" "menu_service_nodeport" {
+  yaml_body = file("./../kubernetes/menu-service-nodeport.yaml")
+}
+
+resource "kubectl_manifest" "ordering_service_deployment" {
+  yaml_body = file("./../kubernetes/ordering-service-deployment.yaml")
+}
+
+resource "kubectl_manifest" "ordering_service_nodeport" {
+  yaml_body = file("./../kubernetes/ordering-service-nodeport.yaml")
+}
+
+resource "kubectl_manifest" "pizza-castle-ingress" {
+  yaml_body = file("./../kubernetes/ingress.yaml")
 }
