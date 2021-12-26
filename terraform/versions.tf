@@ -10,5 +10,12 @@ terraform {
     }
   }
 
-  # {{ STATE_BACKEND }}
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "pizza-castle"
+
+    workspaces {
+      prefix = "pizza-castle-"
+    }
+  }
 }
