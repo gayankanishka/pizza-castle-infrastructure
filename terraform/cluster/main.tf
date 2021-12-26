@@ -2,6 +2,15 @@ provider "aws" {
   region = var.region
 }
 
+terraform {
+  required_providers {
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "1.13.1"
+    }
+  }
+}
+
 data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id
 }
