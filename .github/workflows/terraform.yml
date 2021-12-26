@@ -29,17 +29,13 @@ jobs:
         id: fmt
         run: terraform fmt -check
 
-      - name: Terraform Init
-        id: init
-        run: terraform init
-
-      - name: Terraform Create Workspace
-        id: create
-        run: terraform workspace new dev
-
       - name: Terraform Select Workspace
         id: select
         run: terraform workspace select dev
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
 
       - name: Terraform Validate
         id: validate
