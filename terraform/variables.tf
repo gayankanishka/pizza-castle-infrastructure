@@ -12,4 +12,5 @@ variable "eks_cluster_name" {
 variable "eks_cluster_instance_type" {
   type        = string
   description = "The EC2 instance type to use for the EKS cluster"
+  default     = "t2.micro"
 }
