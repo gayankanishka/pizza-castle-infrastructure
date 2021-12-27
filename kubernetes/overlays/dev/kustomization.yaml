@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: dev-pizza-castle
+namePrefix: dev-
+resources:
+  - ../../bases/pizza-castle-web
+  - ../../bases/pizza-castle-menu-service
+  - ../../bases/pizza-castle-ordering-service
+  - namespace.yaml
+transformers:
+  - labels.yaml
+replicas:
+  - count: 1
+    name: pizza-castle-web
+  - count: 1
+    name: pizza-castle-menu-service
+  - count: 1
+    name: pizza-castle-ordering-service
+images:
+  - name: kajendranalagaratnam/pizza-castle-web:main
+  - name: gayankanishka/pizza-castle-menu-service:latest
+  - name: gayankanishka/pizza-castle-ordering-service:latest

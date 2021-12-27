@@ -2,24 +2,42 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pizza-castle-menu-service
+  labels:
+    app: pizza-castle-menu-service
 annotations:
   fluxcd.io/automated: 'true'
 spec:
   selector:
     matchLabels:
       name: pizza-castle-menu-service
+  replicas: 1
   template:
     metadata:
       labels:
-        name: pizza-castle-menu-service
+        app: pizza-castle-menu-service
     spec:
       containers:
         - name: menu-service
           image: gayankanishka/pizza-castle-menu-service:latest
-          ports:
-            - containerPort: 5000
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
           env:
             - name: UseInMemoryDatabase
               value: 'true'
             - name: ASPNETCORE_ENVIRONMENT
               value: 'Development'
+          resources:
+            requests:
+              cpu: 25m
+              memory: 50Mi
+            limits:
+              cpu: 150m
+              memory: 150Mi
+          ports:
+            - containerPort: 5000
