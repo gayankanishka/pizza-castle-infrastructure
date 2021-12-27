@@ -37,6 +37,16 @@ provider "kubectl" {
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
 }
 
+
+locals {
+  known_hosts = "github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg="
+}
+
+resource "tls_private_key" "main" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P256"
+}
+
 data "aws_availability_zones" "available" {
 }
 
@@ -123,11 +133,19 @@ resource "helm_release" "ingress" {
   }
 }
 
+# Flux CD
+
 data "flux_install" "main" {
-  target_path    = var.target_paths[terraform.workspace]
-  network_policy = false
+  target_path = var.target_paths[terraform.workspace]
 }
 
+data "flux_sync" "main" {
+  target_path = var.target_paths[terraform.workspace]
+  url         = "ssh://git@github.com/${var.github_owner}/${var.repository_name}.git"
+  branch      = var.branch
+}
+
+# Kubernetes
 resource "kubernetes_namespace" "flux_system" {
   metadata {
     name = "flux-system"
@@ -140,41 +158,20 @@ resource "kubernetes_namespace" "flux_system" {
   }
 }
 
-data "kubectl_file_documents" "apply" {
+data "kubectl_file_documents" "install" {
   content = data.flux_install.main.content
 }
 
-# Convert documents list to include parsed yaml data
-locals {
-  apply = [for v in data.kubectl_file_documents.apply.documents : {
-    data : yamldecode(v)
-    content : v
-    }
-  ]
-}
-
-# Apply manifests on the cluster
-resource "kubectl_manifest" "apply" {
-  for_each   = { for v in local.apply : lower(join("/", compact([v.data.apiVersion, v.data.kind, lookup(v.data.metadata, "namespace", ""), v.data.metadata.name]))) => v.content }
-  depends_on = [kubernetes_namespace.flux_system]
-  yaml_body  = each.value
-}
-
-
-# Generate manifests
-data "flux_sync" "main" {
-  target_path = var.target_paths[terraform.workspace]
-  url         = "https://github.com/${var.github_owner}/${var.github_repository_name}"
-  branch      = var.branch
-}
-
-# Split multi-doc YAML with
 data "kubectl_file_documents" "sync" {
   content = data.flux_sync.main.content
 }
 
-# Convert documents list to include parsed yaml data
 locals {
+  install = [for v in data.kubectl_file_documents.install.documents : {
+    data : yamldecode(v)
+    content : v
+    }
+  ]
   sync = [for v in data.kubectl_file_documents.sync.documents : {
     data : yamldecode(v)
     content : v
@@ -182,16 +179,20 @@ locals {
   ]
 }
 
-# Apply manifests on the cluster
+resource "kubectl_manifest" "install" {
+  for_each   = { for v in local.install : lower(join("/", compact([v.data.apiVersion, v.data.kind, lookup(v.data.metadata, "namespace", ""), v.data.metadata.name]))) => v.content }
+  depends_on = [kubernetes_namespace.flux_system]
+  yaml_body  = each.value
+}
+
 resource "kubectl_manifest" "sync" {
   for_each   = { for v in local.sync : lower(join("/", compact([v.data.apiVersion, v.data.kind, lookup(v.data.metadata, "namespace", ""), v.data.metadata.name]))) => v.content }
   depends_on = [kubernetes_namespace.flux_system]
   yaml_body  = each.value
 }
 
-# Generate a Kubernetes secret with the Git credentials
 resource "kubernetes_secret" "main" {
-  depends_on = [kubectl_manifest.apply]
+  depends_on = [kubectl_manifest.install]
 
   metadata {
     name      = data.flux_sync.main.secret
@@ -199,15 +200,16 @@ resource "kubernetes_secret" "main" {
   }
 
   data = {
-    username = "git"
-    password = var.flux_token
+    identity       = tls_private_key.main.private_key_pem
+    "identity.pub" = tls_private_key.main.public_key_pem
+    known_hosts    = local.known_hosts
   }
 }
 
 # GitHub
 resource "github_repository" "main" {
-  name       = var.github_repository_name
-  visibility = var.github_repository_visibility
+  name       = var.repository_name
+  visibility = var.repository_visibility
   auto_init  = true
 }
 

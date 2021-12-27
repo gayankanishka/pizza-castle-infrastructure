@@ -4,15 +4,19 @@ terraform {
   required_providers {
     github = {
       source  = "integrations/github"
-      version = "4.19.0"
+      version = ">= 4.5.2"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
-      version = "1.13.1"
+      version = ">= 1.10.0"
     }
     flux = {
       source  = "fluxcd/flux"
-      version = "0.8.1"
+      version = ">= 0.0.13"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "3.1.0"
     }
   }
 }

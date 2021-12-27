@@ -7,16 +7,16 @@ variable "github_owner" {
 variable "github_token" {
   type        = string
   description = "The github access token"
-  default     = "dsdsd"
+  default     = ""
 }
 
-variable "github_repository_name" {
+variable "repository_name" {
   type        = string
   description = "The name of the infrastructure repository"
-  default     = "pizza-castle-infrastructure"
+  default     = "pizza-castle-flux-infrastructure"
 }
 
-variable "github_repository_visibility" {
+variable "repository_visibility" {
   type        = string
   description = "Repo visibility"
   default     = "private"
@@ -31,14 +31,8 @@ variable "target_paths" {
   type        = map(any)
   description = "Flux sync target paths"
   default = {
-    pizza-castle-dev     = "kubernetes/clusters/dev"
-    pizza-castle-staging = "kubernetes/clusters/staging"
-    pizza-castle-prod    = "kubernetes/clusters/prod"
+    pizza-castle-dev     = "clusters/dev"
+    pizza-castle-staging = "clusters/staging"
+    pizza-castle-prod    = "clusters/prod"
   }
-}
-
-variable "flux_token" {
-  type        = string
-  description = "Flux token"
-  default     = "dsdsd"
 }
