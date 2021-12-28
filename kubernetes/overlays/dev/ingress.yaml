@@ -1,7 +1,8 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
+namespace: pizza-castle-dev
 metadata:
-  name: pizza-castle-ingress
+  name: pizza-castle-ingress-dev
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     kubernetes.io/ingress.class: alb
