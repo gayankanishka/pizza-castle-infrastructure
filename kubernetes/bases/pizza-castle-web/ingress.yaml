@@ -1,11 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: pizza-castle-menu-service
+  name: pizza-castle-ingress
+  labels:
+    app: pizza-castle-ingress
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     kubernetes.io/ingress.class: alb
 spec:
+  selector:
+    matchLabels:
+      app: pizza-castle-ingress
   rules:
     - http:
         paths:
@@ -20,4 +25,7 @@ spec:
           - path: /*
             backend:
               serviceName: pizza-castle-web
+              selector:
+                matchLabels:
+                  app: pizza-castle-web
               servicePort: 80
