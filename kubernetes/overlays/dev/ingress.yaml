@@ -19,5 +19,5 @@ spec:
           #     servicePort: 5002
           - path: /*
             backend:
-              serviceName: pizza-castle-web-dev
+              serviceName: pizza-castle-web
               servicePort: 80
