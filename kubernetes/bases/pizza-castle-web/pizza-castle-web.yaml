@@ -48,4 +48,4 @@ spec:
       targetPort: 3000
       protocol: TCP
   selector:
-    name: pizza-castle-web
+    app: pizza-castle-web

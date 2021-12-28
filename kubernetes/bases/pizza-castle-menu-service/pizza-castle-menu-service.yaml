@@ -52,4 +52,4 @@ spec:
     - port: 5000
       targetPort: 5000
   selector:
-    name: pizza-castle-menu-service
+    app: pizza-castle-menu-service
