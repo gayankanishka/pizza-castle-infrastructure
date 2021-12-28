@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: pizza-castle-ingress
   labels:
-    app: pizza-castle-ingress-main
+    app: pizza-castle-ingress
   annotations:
     fluxcd.io/ignore: 'false'
     kubernetes.io/ingress.class: alb
@@ -17,6 +17,6 @@ spec:
             path: /
             backend:
               service:
-                name: pizza-castle-web-dev
+                name: pizza-castle-web
                 port:
                   number: 80
