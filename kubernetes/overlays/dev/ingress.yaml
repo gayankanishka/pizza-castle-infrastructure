@@ -1,29 +1,22 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: pizza-castle-ingress
-  namespace: pizza-castle-dev
+  labels:
+    app: pizza-castle-ingress-main
   annotations:
     fluxcd.io/ignore: 'false'
     kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: instance
-    alb.ingress.kubernetes.io/healthcheck-path: '/'
-    alb.ingress.kubernetes.io/success-codes: '200,404'
 spec:
   rules:
     - http:
         paths:
-          # - path: /api/vi/menu/*
-          #   backend:
-          #     serviceName: pizza-castle-menu-service
-          #     servicePort: 5000
-          # - path: /api/vi/orders/*
-          #   backend:
-          #     serviceName: pizza-castle-ordering-service
-          #     servicePort: 5002
-          - path: /*
+          - pathType: Prefix
+            path: /
             backend:
-              serviceName: pizza-castle-web
-              servicePort: 80
+              service:
+                name: pizza-castle-web-dev
+                port:
+                  number: 80
