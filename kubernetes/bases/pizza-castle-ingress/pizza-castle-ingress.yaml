@@ -14,12 +14,12 @@ spec:
     - http:
         paths:
           - pathType: Prefix
-            path: /api/v1/menu
+            path: /api/v1/menu/*
             backend:
               serviceName: pizza-castle-menu-service
               servicePort: 5000
           - pathType: Prefix
-            path: /api/v1/order
+            path: /api/v1/order/*
             backend:
               serviceName: pizza-castle-ordering-service
               servicePort: 5002
