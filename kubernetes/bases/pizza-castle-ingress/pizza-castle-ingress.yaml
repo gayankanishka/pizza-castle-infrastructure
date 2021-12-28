@@ -14,20 +14,6 @@ spec:
     - http:
         paths:
           - pathType: Prefix
-            path: /api/v1/menu/*
-            backend:
-              service:
-                name: pizza-castle-menu-service
-                port:
-                  number: 5000
-          - pathType: Prefix
-            path: /api/v1/order/*
-            backend:
-              service:
-                name: pizza-castle-ordering-service
-                port:
-                  number: 5002
-          - pathType: Prefix
             path: /*
             backend:
               service:

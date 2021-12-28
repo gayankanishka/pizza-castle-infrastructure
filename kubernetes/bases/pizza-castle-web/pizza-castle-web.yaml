@@ -33,9 +33,9 @@ spec:
             - name: AUTH0_CLIENT_SECRET
               value: X5f4yOvgHmQlJd06jar7CFdq4zkkqaguGUgNEp904WFL2lr121QSS-Z6_qLw7RhZ
             - name: ORDER_BASE_URL
-              value: 'http://dev.pizza-castle.studio:5002/api/v1/order'
+              value: 'http://pizza-castle-ordering-service.pizza-castle-dev.svc.cluster.local:5002/api/v1/order'
             - name: MENU_BASE_URL
-              value: 'http://dev.pizza-castle.studio:5000/api/v1/menu'
+              value: 'http://pizza-castle-menu-service.pizza-castle-dev.svc.cluster.local:5000/api/v1/menu'
           ports:
             - containerPort: 3000
 ---
