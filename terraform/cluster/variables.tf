@@ -16,12 +16,6 @@ variable "repository_name" {
   default     = "pizza-castle-flux-infrastructure"
 }
 
-variable "repository_visibility" {
-  type        = string
-  description = "Repo visibility"
-  default     = "private"
-}
-
 variable "branch" {
   type    = string
   default = "main"
