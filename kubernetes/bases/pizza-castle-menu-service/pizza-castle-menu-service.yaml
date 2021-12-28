@@ -9,7 +9,7 @@ annotations:
 spec:
   selector:
     matchLabels:
-      name: pizza-castle-menu-service
+      app: pizza-castle-menu-service
   replicas: 1
   template:
     metadata:

@@ -9,7 +9,7 @@ annotations:
 spec:
   selector:
     matchLabels:
-      name: pizza-castle-web
+      app: pizza-castle-web
   replicas: 1
   template:
     metadata:
