@@ -46,5 +46,6 @@ spec:
   ports:
     - port: 80
       targetPort: 3000
+      protocol: TCP
   selector:
     name: pizza-castle-web
