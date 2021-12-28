@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: dev-pizza-castle
-namePrefix: dev-
+namespace: pizza-castle-dev
+nameSuffix: -dev
 resources:
   - ../../bases/pizza-castle-web
   - ../../bases/pizza-castle-menu-service
