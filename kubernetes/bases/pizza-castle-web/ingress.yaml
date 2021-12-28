@@ -24,8 +24,5 @@ spec:
           #     servicePort: 5002
           - path: /*
             backend:
-              serviceName: pizza-castle-web
-              selector:
-                matchLabels:
-                  app: pizza-castle-web
+              serviceName: pizza-castle-web-dev
               servicePort: 80
