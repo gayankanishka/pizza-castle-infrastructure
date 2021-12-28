@@ -4,8 +4,9 @@ metadata:
   name: pizza-castle-ingress
   namespace: pizza-castle-dev
   annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
     kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
 spec:
   rules:
     - http:
