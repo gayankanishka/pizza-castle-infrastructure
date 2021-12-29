@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizza-castle-web
+  labels:
+    app: pizza-castle-web
+annotations:
+  fluxcd.io/automated: 'true'
+spec:
+  selector:
+    matchLabels:
+      app: pizza-castle-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pizza-castle-web
+    spec:
+      containers:
+        - name: web-app
+          image: kajendranalagaratnam/pizza-castle-web:main
+          env:
+            - name: AUTH0_SECRET
+              value: 'bbea652bf473d0cbdd843e5f32eb2cf0c8698f6ea5f7809e84616d5ecf7d4d55'
+            - name: AUTH0_BASE_URL
+              value: 'http://dev.pizza-castle.studio'
+            - name: AUTH0_ISSUER_BASE_URL
+              value: 'https://dev-pizza-castle.us.auth0.com'
+            - name: AUTH0_AUDIENCE
+              value: 'https://dev.pizza-castle.com/api/v1/ordering'
+            - name: AUTH0_CLIENT_ID
+              value: e4V40isp8iT4fcLkX6RasFKmqSNmesnG
+            - name: AUTH0_CLIENT_SECRET
+              value: X5f4yOvgHmQlJd06jar7CFdq4zkkqaguGUgNEp904WFL2lr121QSS-Z6_qLw7RhZ
+            - name: ORDER_BASE_URL
+              value: 'http://pizza-castle-ordering-service.pizza-castle-dev.svc.cluster.local:5002/api/v1/order'
+            - name: MENU_BASE_URL
+              value: 'http://pizza-castle-menu-service.pizza-castle-dev.svc.cluster.local:5000/api/v1/menu'
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pizza-castle-web
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: pizza-castle-web

@@ -8,4 +8,4 @@ spec:
     - port: 5002
       targetPort: 5002
   selector:
-    name: pizza-castle-ordering-service
+    app: pizza-castle-ordering-service

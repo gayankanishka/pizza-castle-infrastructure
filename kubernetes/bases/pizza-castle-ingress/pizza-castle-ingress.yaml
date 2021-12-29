@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pizza-castle-ingress
+  labels:
+    app: pizza-castle-ingress
+  annotations:
+    fluxcd.io/ignore: 'false'
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: /*
+            backend:
+              service:
+                name: pizza-castle-web
+                port:
+                  number: 80

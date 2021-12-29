@@ -12,9 +12,9 @@ variable "eks_cluster_names" {
   type        = map(any)
   description = "The name of the EKS clusters for different workspaces"
   default = {
-    pizza-castle-dev     = "dev-pizza-castle-cluster"
-    pizza-castle-staging = "staging-pizza-castle-cluster"
-    pizza-castle-prod    = "prod-pizza-castle-cluster"
+    pizza-castle-dev     = "pizza-castle-cluster-dev"
+    pizza-castle-staging = "pizza-castle-cluster-staging"
+    pizza-castle-prod    = "pizza-castle-cluster-prod"
   }
 }
 
