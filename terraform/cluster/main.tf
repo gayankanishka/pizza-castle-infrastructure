@@ -136,7 +136,8 @@ resource "helm_release" "ingress" {
 # Flux CD
 
 data "flux_install" "main" {
-  target_path = var.target_paths[terraform.workspace]
+  target_path      = var.target_paths[terraform.workspace]
+  components_extra = ["image-reflector-controller", "image-automation-controller"]
 }
 
 data "flux_sync" "main" {
