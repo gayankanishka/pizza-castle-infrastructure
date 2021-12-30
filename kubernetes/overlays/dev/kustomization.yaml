@@ -15,9 +15,12 @@ replicas:
   - count: 1
     name: pizza-castle-ordering-service
 images:
-  - name: kajendranalagaratnam/pizza-castle-web:main
-  - name: gayankanishka/pizza-castle-menu-service:latest
-  - name: gayankanishka/pizza-castle-ordering-service:latest
+  - name: kajendranalagaratnam/pizza-castle-web
+    newTag: dev-8b7371c-1640864567 # {"$imagepolicy": "flux-system:web-image-policy:tag"}
+  - name: gayankanishka/pizza-castle-menu-service
+    newTag: dev-34a3d71-1640865985 # {"$imagepolicy": "flux-system:menu-service-image-policy:tag"}
+  - name: gayankanishka/pizza-castle-ordering-service
+    newTag: dev-b6ae829-1640870418 # {"$imagepolicy": "flux-system:ordering-service-image-policy:tag"}
 configMapGenerator:
   - name: auth-secret
     env: config.properties
