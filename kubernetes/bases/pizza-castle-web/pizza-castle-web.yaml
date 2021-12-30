@@ -46,7 +46,7 @@ spec:
             - name: MENU_BASE_URL
               valueFrom:
                 configMapKeyRef:
-                  name: MENU_BASE_URL
+                  name: menu-base-url
                   key: MENU_BASE_URL
             #- name: MENU_BASE_URL
             #  value: 'http://pizza-castle-menu-service.pizza-castle-dev.svc.cluster.local:5000/api/v1/menu'

@@ -19,5 +19,5 @@ images:
   - name: gayankanishka/pizza-castle-menu-service:latest
   - name: gayankanishka/pizza-castle-ordering-service:latest
 configMapGenerator:
-  - name: MENU_BASE_URL
+  - name: menu-base-url
     env: config.properties
