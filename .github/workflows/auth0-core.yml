@@ -1,0 +1,33 @@
+name: Auth0 Core CI/CD
+
+on:
+  workflow_call:
+    inputs:
+      workspace:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+
+jobs:
+  auth0-ci-cd:
+    name: 'Core CI/CD'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './auth0'
+
+    steps:
+      - name: Download files from the current repository
+        uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+      - name: Install the dependencies
+        run: npm install
+      - name: Import changes to the Auth0 ${{ inputs.workspace }} environment
+        env:
+          AUTH0_CLIENT_SECRET: ${{ secrets.token }}
+        run: npm run import:${{ inputs.workspace }}

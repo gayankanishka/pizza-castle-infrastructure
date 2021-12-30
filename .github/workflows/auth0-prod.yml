@@ -1,0 +1,11 @@
+name: Auth0 PROD CI/CD
+on:
+  workflow_dispatch:
+
+jobs:
+  auth0-ci-cd:
+    uses: gayankanishka/pizza-castle-infrastructure/.github/workflows/auth0-core.yml@main
+    with:
+      workspace: prod
+    secrets:
+      token: ${{ secrets.AUTH0_PROD_CLIENT_SECRET }}

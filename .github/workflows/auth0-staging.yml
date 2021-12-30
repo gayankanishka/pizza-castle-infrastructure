@@ -1,0 +1,11 @@
+name: Auth0 STAGING CI/CD
+on:
+  workflow_dispatch:
+
+jobs:
+  auth0-ci-cd:
+    uses: gayankanishka/pizza-castle-infrastructure/.github/workflows/auth0-core.yml@main
+    with:
+      workspace: staging
+    secrets:
+      token: ${{ secrets.AUTH0_STAGING_CLIENT_SECRET }}

@@ -1,0 +1,16 @@
+name: Auth0 DEV CI/CD
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'auth0/**'
+  workflow_dispatch:
+
+jobs:
+  auth0-ci-cd:
+    uses: gayankanishka/pizza-castle-infrastructure/.github/workflows/auth0-core.yml@main
+    with:
+      workspace: dev
+    secrets:
+      token: ${{ secrets.AUTH0_DEV_CLIENT_SECRET }}
