@@ -1,23 +1,26 @@
-name: 'Terraform CI/CD'
+name: Terraform Core CI/CD
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'terraform/**'
-  pull_request:
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      workspace:
+        required: true
+        type: string
+    secrets:
+      ghToken:
+        required: true
+      tfApiToken:
+        required: true
 
 jobs:
   terraform-ci-cd:
-    name: 'CI/CD'
+    name: 'Core CI/CD'
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: './terraform'
     env:
-      TF_WORKSPACE: 'dev'
+      TF_WORKSPACE: ${{ inputs.workspace }}
 
     steps:
       - name: Checkout
@@ -26,7 +29,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          cli_config_credentials_token: ${{ secrets.tfApiToken }}
 
       - name: Terraform Format
         id: fmt
@@ -52,7 +55,7 @@ jobs:
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.ghToken }}
           script: |
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`

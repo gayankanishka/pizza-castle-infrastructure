@@ -1,0 +1,13 @@
+name: 'Terraform STAGING CI/CD'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform-ci-cd:
+    uses: gayankanishka/pizza-castle-infrastructure/.github/workflows/terraform-core.yml@main
+    with:
+      workspace: staging
+    secrets:
+      ghToken: ${{ secrets.GITHUB_TOKEN }}
+      tfApiToken: ${{ secrets.TF_API_TOKEN }}
