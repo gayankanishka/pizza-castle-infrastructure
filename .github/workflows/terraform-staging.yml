@@ -9,5 +9,4 @@ jobs:
     with:
       workspace: staging
     secrets:
-      ghToken: ${{ secrets.GITHUB_TOKEN }}
-      tfApiToken: ${{ secrets.TF_API_TOKEN }}
+      token: ${{ secrets.TF_API_TOKEN }}

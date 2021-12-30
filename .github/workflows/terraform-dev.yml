@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - 'terraform/**'
-  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -15,5 +14,4 @@ jobs:
     with:
       workspace: dev
     secrets:
-      ghToken: ${{ secrets.GITHUB_TOKEN }}
-      tfApiToken: ${{ secrets.TF_API_TOKEN }}
+      token: ${{ secrets.TF_API_TOKEN }}
