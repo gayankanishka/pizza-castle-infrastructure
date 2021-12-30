@@ -17,5 +17,5 @@ replicas:
 images:
   - name: kajendranalagaratnam/pizza-castle-web:main
   - name: gayankanishka/pizza-castle-menu-service
-    newTag: latest # {"$imagepolicy": "flux-system:pizza-castle-menu-image-automation"}
+    newTag: latest # {"$imagepolicy": "flux-system:pizza-castle-menu-image-automation:tag"}
   - name: gayankanishka/pizza-castle-ordering-service:latest
