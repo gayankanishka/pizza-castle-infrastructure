@@ -1,7 +1,17 @@
+apiVersion: v1
+data:
+  USE_IN_MEMORY_DB: 'true'
+  ASPNETCORE_ENVIRONMENT: 'Development'
+kind: ConfigMap
+metadata:
+  name: menu-service-config-map
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pizza-castle-menu-service
+  annotations:
+    reloader.stakater.com/auto: "true"
   labels:
     app: pizza-castle-menu-service
 annotations:
@@ -29,9 +39,15 @@ spec:
               port: 5000
           env:
             - name: UseInMemoryDatabase
-              value: 'true'
+              valueFrom:
+                configMapKeyRef:
+                  name: use-in-memory-db
+                  key: USE_IN_MEMORY_DB
             - name: ASPNETCORE_ENVIRONMENT
-              value: 'Development'
+              valueFrom:
+                configMapKeyRef:
+                  name: asp-net-core-env
+                  key: ASPNETCORE_ENVIRONMENT
           resources:
             requests:
               cpu: 25m

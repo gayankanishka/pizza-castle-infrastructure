@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pizza-castle-ordering-service
+  annotations:
+    reloader.stakater.com/auto: "true"
   labels:
     app: pizza-castle-ordering-service
 annotations:
@@ -29,9 +31,15 @@ spec:
               port: 5002
           env:
             - name: UseInMemoryDatabase
-              value: 'true'
+              valueFrom:
+                configMapKeyRef:
+                  name: use-in-memory-db
+                  key: USE_IN_MEMORY_DB
             - name: ASPNETCORE_ENVIRONMENT
-              value: 'Development'
+              valueFrom:
+                configMapKeyRef:
+                  name: asp-net-core-env
+                  key: ASPNETCORE_ENVIRONMENT
           resources:
             requests:
               cpu: 25m

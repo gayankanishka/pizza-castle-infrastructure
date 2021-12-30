@@ -21,3 +21,24 @@ images:
     newTag: dev-34a3d71-1640865985 # {"$imagepolicy": "flux-system:menu-service-image-policy:tag"}
   - name: gayankanishka/pizza-castle-ordering-service
     newTag: dev-b6ae829-1640870418 # {"$imagepolicy": "flux-system:ordering-service-image-policy:tag"}
+configMapGenerator:
+  - name: auth-secret
+    env: config.properties
+  - name: auth0-base-url
+    env: config.properties
+  - name: auth0-issuer-base-url
+    env: config.properties
+  - name: auth0-audience
+    env: config.properties
+  - name: auth0-client-id
+    env: config.properties
+  - name: auth0-client-secret
+    env: config.properties
+  - name: order-base-url
+    env: config.properties
+  - name: menu-base-url
+    env: config.properties
+  - name: use-in-memory-db
+    env: config.properties
+  - name: asp-net-core-env
+    env: config.properties
