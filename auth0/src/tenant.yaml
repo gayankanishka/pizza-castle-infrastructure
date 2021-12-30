@@ -1,0 +1,197 @@
+rules: []
+rulesConfigs: []
+hooks: []
+pages:
+  - name: login
+    enabled: true
+    html: ./pages/login.html
+resourceServers:
+  - name: Pizza Castle Ordering Service
+    identifier: '##API_IDENTIFIER##'
+    allow_offline_access: false
+    signing_alg: RS256
+    skip_consent_for_verifiable_first_party_clients: true
+    token_lifetime: 86400
+    token_lifetime_for_web: 7200
+clients:
+  - name: Default App
+    callbacks: []
+    cross_origin_auth: false
+    custom_login_page_on: true
+    grant_types:
+      - authorization_code
+      - implicit
+      - refresh_token
+      - client_credentials
+    is_first_party: true
+    is_token_endpoint_ip_header_trusted: false
+    jwt_configuration:
+      alg: RS256
+      lifetime_in_seconds: 36000
+      secret_encoded: false
+    oidc_conformant: true
+    refresh_token:
+      expiration_type: non-expiring
+      leeway: 0
+      infinite_token_lifetime: true
+      infinite_idle_token_lifetime: true
+      token_lifetime: 2592000
+      idle_token_lifetime: 1296000
+      rotation_type: non-rotating
+    sso_disabled: false
+  - name: Pizza Castle Ordering Service
+    app_type: non_interactive
+    cross_origin_auth: false
+    custom_login_page_on: true
+    grant_types:
+      - client_credentials
+    is_first_party: true
+    is_token_endpoint_ip_header_trusted: false
+    jwt_configuration:
+      alg: RS256
+      lifetime_in_seconds: 36000
+      secret_encoded: false
+    oidc_conformant: true
+    refresh_token:
+      expiration_type: non-expiring
+      leeway: 0
+      infinite_token_lifetime: true
+      infinite_idle_token_lifetime: true
+      token_lifetime: 31557600
+      idle_token_lifetime: 2592000
+      rotation_type: non-rotating
+    sso_disabled: false
+    token_endpoint_auth_method: client_secret_post
+  - name: Pizza Castle WebApp
+    allowed_clients: []
+    allowed_logout_urls: ['##APP_LOGOUT##']
+    app_type: spa
+    callbacks: ['##APP_CALLBACKS##']
+    client_aliases: []
+    cross_origin_auth: false
+    custom_login_page_on: true
+    grant_types:
+      - authorization_code
+      - implicit
+      - refresh_token
+    is_first_party: true
+    is_token_endpoint_ip_header_trusted: false
+    jwt_configuration:
+      alg: RS256
+      lifetime_in_seconds: 36000
+      secret_encoded: false
+    native_social_login:
+      apple:
+        enabled: false
+      facebook:
+        enabled: false
+    oidc_conformant: true
+    refresh_token:
+      expiration_type: expiring
+      leeway: 0
+      token_lifetime: 2592000
+      idle_token_lifetime: 1296000
+      infinite_token_lifetime: false
+      infinite_idle_token_lifetime: false
+      rotation_type: rotating
+    sso_disabled: false
+    token_endpoint_auth_method: none
+  - name: auth0-deploy-cli-extension
+    app_type: non_interactive
+    cross_origin_auth: false
+    custom_login_page_on: true
+    grant_types:
+      - client_credentials
+    is_first_party: true
+    is_token_endpoint_ip_header_trusted: false
+    jwt_configuration:
+      alg: RS256
+      lifetime_in_seconds: 36000
+      secret_encoded: false
+    oidc_conformant: true
+    refresh_token:
+      expiration_type: non-expiring
+      leeway: 0
+      infinite_token_lifetime: true
+      infinite_idle_token_lifetime: true
+      token_lifetime: 31557600
+      idle_token_lifetime: 2592000
+      rotation_type: non-rotating
+    sso_disabled: false
+    token_endpoint_auth_method: client_secret_post
+databases:
+  - name: Username-Password-Authentication
+    strategy: auth0
+    enabled_clients:
+      - auth0-deploy-cli-extension
+      - Default App
+      - Pizza Castle Ordering Service
+      - Pizza Castle WebApp
+    is_domain_connection: false
+    options:
+      mfa:
+        active: true
+        return_enroll_settings: true
+      passwordPolicy: good
+      strategy_version: 2
+      brute_force_protection: true
+    realms:
+      - Username-Password-Authentication
+connections: []
+tenant:
+  enabled_locales:
+    - en
+  flags:
+    new_universal_login_experience_enabled: true
+    universal_login: true
+    revoke_refresh_token_grant: false
+    disable_clickjack_protection_headers: false
+  picture_url: https://arthurs.lk/wp-content/uploads/2020/04/AP_web_photos29-1-300x300.png
+  universal_login:
+    colors:
+      page_background: '#000000'
+      primary: '#f5950f'
+emailProvider: {}
+emailTemplates: []
+clientGrants:
+  - client_id: Pizza Castle Ordering Service
+    audience: '##AUDIENCE##'
+    scope: []
+guardianFactors:
+  - name: duo
+    enabled: false
+  - name: email
+    enabled: false
+  - name: otp
+    enabled: false
+  - name: push-notification
+    enabled: false
+  - name: recovery-code
+    enabled: false
+  - name: sms
+    enabled: false
+  - name: webauthn-platform
+    enabled: false
+  - name: webauthn-roaming
+    enabled: false
+guardianFactorProviders: []
+guardianFactorTemplates: []
+guardianPolicies:
+  policies: []
+guardianPhoneFactorSelectedProvider:
+  provider: auth0
+guardianPhoneFactorMessageTypes:
+  message_types: []
+roles: []
+branding:
+  colors:
+    page_background: '#000000'
+    primary: '#f5950f'
+  logo_url: https://arthurs.lk/wp-content/uploads/2020/04/AP_web_photos29-1-300x300.png
+prompts:
+  universal_login_experience: new
+  identifier_first: false
+migrations: {}
+actions: []
+triggers: {}
+organizations: []

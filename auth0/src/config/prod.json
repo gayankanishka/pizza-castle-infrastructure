@@ -1,0 +1,15 @@
+{
+  "AUTH0_DOMAIN": "prod-pizza-castle.us.auth0.com",
+  "AUTH0_CLIENT_ID": "U3vswUsYFHhyy4P08sBelbDE1KqC45kT",
+  "AUTH0_ALLOW_DELETE": true,
+  "AUTH0_KEYWORD_REPLACE_MAPPINGS": {
+    "APP_CALLBACKS": ["http://www.pizza-castle.studio/api/auth/callback"],
+    "APP_LOGOUT": ["http://www.pizza-castle.studio/"],
+    "API_IDENTIFIER": "https://prod.pizza-castle.com/api/v1/ordering",
+    "AUDIENCE": "https://prod.pizza-castle.com/api/v1/ordering"
+  },
+  "EXCLUDED_PROPS": {
+    "clients": ["client_secret"],
+    "connections": ["options.client_secret"]
+  }
+}

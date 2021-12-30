@@ -1,0 +1,28 @@
+{
+  "name": "pizza-castle-auth0",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "export:dev": "a0deploy export --strip --format yaml --output_folder src --config_file ./src/config/dev.json",
+    "import:dev": "a0deploy import --input_file ./src/tenant.yaml --config_file ./src/config/dev.json",
+    "import:staging": "a0deploy import --input_file ./src/tenant.yaml --config_file ./src/config/staging.json",
+    "import:prod": "a0deploy import --input_file ./src/tenant.yaml --config_file ./src/config/prod.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gayankanishka/pizza-castle-auth0.git"
+  },
+  "keywords": [
+    "auth0",
+    "node.js"
+  ],
+  "author": "Gayan K",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gayankanishka/pizza-castle-auth0/issues"
+  },
+  "homepage": "https://github.com/gayankanishka/pizza-castle-auth0#readme",
+  "dependencies": {
+    "auth0-deploy-cli": "^7.3.2"
+  }
+}

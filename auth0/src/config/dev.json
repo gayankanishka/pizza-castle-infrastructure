@@ -1,0 +1,18 @@
+{
+  "AUTH0_DOMAIN": "dev-pizza-castle.us.auth0.com",
+  "AUTH0_CLIENT_ID": "XfQFyL37QA8L0jCknN4YSWCw6M35dNwG",
+  "AUTH0_ALLOW_DELETE": true,
+  "AUTH0_KEYWORD_REPLACE_MAPPINGS": {
+    "APP_CALLBACKS": [
+      "http://localhost:3000/api/auth/callback",
+      "http://dev.pizza-castle.studio/api/auth/callback"
+    ],
+    "APP_LOGOUT": ["http://localhost:3000/", "http://dev.pizza-castle.studio/"],
+    "API_IDENTIFIER": "https://dev.pizza-castle.com/api/v1/ordering",
+    "AUDIENCE": "https://dev.pizza-castle.com/api/v1/ordering"
+  },
+  "EXCLUDED_PROPS": {
+    "clients": ["client_secret"],
+    "connections": ["options.client_secret"]
+  }
+}
