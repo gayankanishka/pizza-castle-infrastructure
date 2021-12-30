@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pizza-castle-web
+  annotations:
+    reloader.stakater.com/auto: "true"
   labels:
     app: pizza-castle-web
 annotations:
@@ -35,6 +37,10 @@ spec:
             - name: ORDER_BASE_URL
               value: 'http://pizza-castle-ordering-service.pizza-castle-dev.svc.cluster.local:5002/api/v1/order'
             - name: MENU_BASE_URL
-              value: 'http://pizza-castle-menu-service.pizza-castle-dev.svc.cluster.local:5000/api/v1/menu'
+              valueFrom:
+                configMapKeyRef:
+                  name: MENU_BASE_URL
+            #- name: MENU_BASE_URL
+            #  value: 'http://pizza-castle-menu-service.pizza-castle-dev.svc.cluster.local:5000/api/v1/menu'
           ports:
             - containerPort: 3000

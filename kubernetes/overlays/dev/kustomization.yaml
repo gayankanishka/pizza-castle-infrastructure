@@ -18,3 +18,6 @@ images:
   - name: kajendranalagaratnam/pizza-castle-web:main
   - name: gayankanishka/pizza-castle-menu-service:latest
   - name: gayankanishka/pizza-castle-ordering-service:latest
+configMapGenerator:
+  - name: MENU_BASE_URL
+    env: config.properties
