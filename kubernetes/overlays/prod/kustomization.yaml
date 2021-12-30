@@ -15,6 +15,30 @@ replicas:
   - count: 10
     name: pizza-castle-ordering-service
 images:
-  - name: kajendranalagaratnam/pizza-castle-web:main
-  - name: gayankanishka/pizza-castle-menu-service:latest
-  - name: gayankanishka/pizza-castle-ordering-service:latest
+  - name: kajendranalagaratnam/pizza-castle-web
+    newTag: main # {"$imagepolicy": "flux-system:web-image-policy:tag"}
+  - name: gayankanishka/pizza-castle-menu-service
+    newTag: latest # {"$imagepolicy": "flux-system:menu-service-image-policy:tag"}
+  - name: gayankanishka/pizza-castle-ordering-service
+    newTag: latest # {"$imagepolicy": "flux-system:ordering-service-image-policy:tag"}
+configMapGenerator:
+  - name: auth-secret
+    env: config.properties
+  - name: auth0-base-url
+    env: config.properties
+  - name: auth0-issuer-base-url
+    env: config.properties
+  - name: auth0-audience
+    env: config.properties
+  - name: auth0-client-id
+    env: config.properties
+  - name: auth0-client-secret
+    env: config.properties
+  - name: order-base-url
+    env: config.properties
+  - name: menu-base-url
+    env: config.properties
+  - name: use-in-memory-db
+    env: config.properties
+  - name: asp-net-core-env
+    env: config.properties
