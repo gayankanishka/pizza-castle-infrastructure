@@ -17,7 +17,7 @@ kind: Deployment
 metadata:
   name: pizza-castle-web
   annotations:
-    reloader.stakater.com/auto: "true"
+    reloader.stakater.com/auto: 'true'
   labels:
     app: pizza-castle-web
 annotations:
@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
         - name: web-app
-          image: kajendranalagaratnam/pizza-castle-web:main
+          image: kajendranalagaratnam/pizza-castle-web
           env:
             - name: AUTH0_SECRET
               valueFrom:

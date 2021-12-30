@@ -11,7 +11,7 @@ kind: Deployment
 metadata:
   name: pizza-castle-menu-service
   annotations:
-    reloader.stakater.com/auto: "true"
+    reloader.stakater.com/auto: 'true'
   labels:
     app: pizza-castle-menu-service
 annotations:
@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: menu-service
-          image: gayankanishka/pizza-castle-menu-service:latest
+          image: gayankanishka/pizza-castle-menu-service
           livenessProbe:
             httpGet:
               path: /health
