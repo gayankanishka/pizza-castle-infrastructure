@@ -117,7 +117,7 @@ resource "helm_release" "ingress" {
   name       = "ingress"
   chart      = "aws-load-balancer-controller"
   repository = "https://aws.github.io/eks-charts"
-  version    = "1.1.6"
+  version    = "1.3.3"
 
   set {
     name  = "autoDiscoverAwsRegion"
