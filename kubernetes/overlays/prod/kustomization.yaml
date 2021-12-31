@@ -16,11 +16,11 @@ replicas:
     name: pizza-castle-ordering-service
 images:
   - name: kajendranalagaratnam/pizza-castle-web
-    newTag: main # {"$imagepolicy": "flux-system:web-image-policy:tag"}
+    newTag: main-8b7371c-1640864853 # {"$imagepolicy": "flux-system:web-image-policy:tag"}
   - name: gayankanishka/pizza-castle-menu-service
-    newTag: latest # {"$imagepolicy": "flux-system:menu-service-image-policy:tag"}
+    newTag: main-973c3b1-1640926582 # {"$imagepolicy": "flux-system:menu-service-image-policy:tag"}
   - name: gayankanishka/pizza-castle-ordering-service
-    newTag: latest # {"$imagepolicy": "flux-system:ordering-service-image-policy:tag"}
+    newTag: main-b6ae829-1640891108 # {"$imagepolicy": "flux-system:ordering-service-image-policy:tag"}
 configMapGenerator:
   - name: auth-secret
     env: config.properties
