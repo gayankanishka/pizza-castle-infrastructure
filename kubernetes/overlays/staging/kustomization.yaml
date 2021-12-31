@@ -18,7 +18,7 @@ images:
   - name: kajendranalagaratnam/pizza-castle-web
     newTag: staging-8b7371c-1640864713 # {"$imagepolicy": "flux-system:web-image-policy:tag"}
   - name: gayankanishka/pizza-castle-menu-service
-    newTag: staging-973c3b1-1640926505 # {"$imagepolicy": "flux-system:menu-service-image-policy:tag"}
+    newTag: staging-973c3b1-1640933336 # {"$imagepolicy": "flux-system:menu-service-image-policy:tag"}
   - name: gayankanishka/pizza-castle-ordering-service
     newTag: staging-b6ae829-1640891031 # {"$imagepolicy": "flux-system:ordering-service-image-policy:tag"}
 configMapGenerator:
