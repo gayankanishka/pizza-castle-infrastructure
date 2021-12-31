@@ -90,7 +90,7 @@ module "eks" {
       max_capacity     = 10
       min_capacity     = 1
 
-      instance_types = [var.instance_type]
+      instance_type = var.instance_type
     }
   }
 
