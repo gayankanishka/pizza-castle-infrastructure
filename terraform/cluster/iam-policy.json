@@ -84,9 +84,7 @@
     },
     {
       "Effect": "Allow",
-      "Action": [
-        "cognito-idp:DescribeUserPoolClient"
-      ],
+      "Action": ["cognito-idp:DescribeUserPoolClient"],
       "Resource": "*"
     },
     {
@@ -101,17 +99,12 @@
     },
     {
       "Effect": "Allow",
-      "Action": [
-        "tag:GetResources",
-        "tag:TagResources"
-      ],
+      "Action": ["tag:GetResources", "tag:TagResources"],
       "Resource": "*"
     },
     {
       "Effect": "Allow",
-      "Action": [
-        "waf:GetWebACL"
-      ],
+      "Action": ["waf:GetWebACL"],
       "Resource": "*"
     },
     {
@@ -135,6 +128,34 @@
         "shield:ListProtections"
       ],
       "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["ec2:CreateTags", "ec2:DeleteTags"],
+      "Resource": "arn:aws:ec2:*:*:security-group/*",
+      "Condition": {
+        "Null": {
+          "aws:ResourceTag/ingress.k8s.aws/cluster": "false"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "elasticloadbalancing:AddTags",
+        "elasticloadbalancing:RemoveTags",
+        "elasticloadbalancing:DeleteTargetGroup"
+      ],
+      "Resource": [
+        "arn:aws:elasticloadbalancing:*:*:targetgroup/*/*",
+        "arn:aws:elasticloadbalancing:*:*:loadbalancer/net/*/*",
+        "arn:aws:elasticloadbalancing:*:*:loadbalancer/app/*/*"
+      ],
+      "Condition": {
+        "Null": {
+          "aws:ResourceTag/ingress.k8s.aws/cluster": "false"
+        }
+      }
     }
   ]
 }
