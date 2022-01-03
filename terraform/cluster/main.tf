@@ -243,17 +243,13 @@ resource "null_resource" "flux_namespace" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl create namespace ${self.triggers.namespace}"
-  }
-
-  provisioner "local-exec" {
     when    = destroy
     command = "kubectl delete namespace ${self.triggers.namespace} --cascade=true --wait=false && sleep 120"
   }
 
   provisioner "local-exec" {
     when       = destroy
-    command    = "kubectl patch customresourcedefinition helmcharts.source.toolkit.fluxcd.io helmreleases.helm.toolkit.fluxcd.io helmrepositories.source.toolkit.fluxcd.io kustomizations.kustomize.toolkit.fluxcd.io gitrepositories.source.toolkit.fluxcd.io -p '{\"metadata\":{\"finalizers\":null}}'"
+    command    = "kubectl patch namespace ${self.triggers.namespace} customresourcedefinition helmcharts.source.toolkit.fluxcd.io helmreleases.helm.toolkit.fluxcd.io helmrepositories.source.toolkit.fluxcd.io kustomizations.kustomize.toolkit.fluxcd.io gitrepositories.source.toolkit.fluxcd.io -p '{\"metadata\":{\"finalizers\":null}}'"
     on_failure = continue
   }
 }
