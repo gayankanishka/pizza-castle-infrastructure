@@ -10,7 +10,6 @@ terraform {
       source  = "hashicorp/local"
       version = ">= 1.4"
     }
-    
   }
 
   backend "remote" {
