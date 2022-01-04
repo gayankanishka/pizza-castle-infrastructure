@@ -2,8 +2,6 @@ provider "aws" {
   region = var.region
 }
 
-provider "flux" {}
-
 provider "github" {
   owner = var.github_owner
   token = var.github_token
@@ -24,6 +22,29 @@ variable "instance_type" {
 }
 
 variable "region" {
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+}
+
+provider "kubectl" {
+  load_config_file       = false
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  token                  = data.aws_eks_cluster_auth.cluster.token
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+}
+
+
+locals {
+  known_hosts = "github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg="
+}
+
+resource "tls_private_key" "main" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P256"
 }
 
 data "aws_availability_zones" "available" {
@@ -126,20 +147,6 @@ data "flux_sync" "main" {
 }
 
 # Kubernetes
-
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-}
-
-provider "kubectl" {
-  load_config_file       = false
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-}
-
 resource "kubernetes_namespace" "flux_system" {
   metadata {
     name = "flux-system"
@@ -201,15 +208,6 @@ resource "kubernetes_secret" "main" {
 }
 
 # GitHub
-
-locals {
-  known_hosts = "github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg="
-}
-
-resource "tls_private_key" "main" {
-  algorithm   = "ECDSA"
-  ecdsa_curve = "P256"
-}
 
 resource "github_repository_deploy_key" "main" {
   title      = var.cluster_name
