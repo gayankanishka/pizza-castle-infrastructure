@@ -236,20 +236,3 @@ resource "github_repository_file" "kustomize" {
   content    = data.flux_sync.main.kustomize_content
   branch     = var.branch
 }
-
-resource "null_resource" "flux_namespace" {
-  triggers = {
-    namespace = "flux-system"
-  }
-
-  provisioner "local-exec" {
-    when    = destroy
-    command = "kubectl delete namespace ${self.triggers.namespace} --cascade=true --wait=false && sleep 120"
-  }
-
-  provisioner "local-exec" {
-    when       = destroy
-    command    = "kubectl patch namespace ${self.triggers.namespace} customresourcedefinition helmcharts.source.toolkit.fluxcd.io helmreleases.helm.toolkit.fluxcd.io helmrepositories.source.toolkit.fluxcd.io kustomizations.kustomize.toolkit.fluxcd.io gitrepositories.source.toolkit.fluxcd.io -p '{\"metadata\":{\"finalizers\":null}}'"
-    on_failure = continue
-  }
-}

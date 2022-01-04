@@ -10,10 +10,7 @@ terraform {
       source  = "hashicorp/local"
       version = ">= 1.4"
     }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = ">= 1.11.1"
-    }
+    
   }
 
   backend "remote" {
