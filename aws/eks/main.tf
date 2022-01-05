@@ -119,22 +119,3 @@ module "fluxcd" {
   flux_git_path                = var.target_paths[terraform.workspace]
   flux_deploy_image_automation = true
 }
-
-
-# NOTE: Requires this workaround to destory the "flux-system" namesapce due to a provider limitation
-resource "null_resource" "flux_namespace" {
-  triggers = {
-    namespace = "flux-system"
-  }
-
-  provisioner "local-exec" {
-    when    = destroy
-    command = "kubectl delete namespace ${self.triggers.namespace} --cascade=background --wait=false && sleep 120"
-  }
-
-  provisioner "local-exec" {
-    when       = destroy
-    command    = "kubectl patch customresourcedefinition helmcharts.source.toolkit.fluxcd.io helmreleases.helm.toolkit.fluxcd.io helmrepositories.source.toolkit.fluxcd.io kustomizations.kustomize.toolkit.fluxcd.io gitrepositories.source.toolkit.fluxcd.io -p '{\"metadata\":{\"finalizers\":null}}'"
-    on_failure = continue
-  }
-}
