@@ -8,11 +8,11 @@ resources:
   - ../../bases/pizza-castle-ingress
   - namespace.yaml
 replicas:
-  - count: 5
+  - count: 2
     name: pizza-castle-web
-  - count: 5
+  - count: 2
     name: pizza-castle-menu-service
-  - count: 5
+  - count: 2
     name: pizza-castle-ordering-service
 images:
   - name: kajendranalagaratnam/pizza-castle-web
