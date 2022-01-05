@@ -1,8 +1,3 @@
-provider "github" {
-  owner = var.github_owner
-  token = var.github_token
-}
-
 data "flux_install" "main" {
   target_path      = var.flux_git_path
   components_extra = var.flux_deploy_image_automation ? ["image-automation-controller", "image-reflector-controller"] : []

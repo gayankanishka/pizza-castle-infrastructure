@@ -12,19 +12,6 @@ variable "cluster_name" {
 variable "instance_type" {
 }
 
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-}
-
-provider "kubectl" {
-  load_config_file       = false
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-}
-
 data "aws_availability_zones" "available" {
 }
 
@@ -83,14 +70,6 @@ resource "aws_iam_policy" "worker_policy" {
   policy = file("${path.module}/iam-policy.json")
 }
 
-provider "helm" {
-  kubernetes {
-    host                   = data.aws_eks_cluster.cluster.endpoint
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-    token                  = data.aws_eks_cluster_auth.cluster.token
-  }
-}
-
 resource "helm_release" "ingress" {
   name       = "ingress"
   chart      = "aws-load-balancer-controller"
@@ -109,13 +88,4 @@ resource "helm_release" "ingress" {
     name  = "clusterName"
     value = var.cluster_name
   }
-}
-
-module "fluxcd" {
-  source = "../fluxcd"
-
-  cluster_name                 = var.cluster_name
-  flux_git_url                 = "ssh://git@github.com/${var.github_owner}/${var.repository_name}.git"
-  flux_git_path                = var.target_paths[terraform.workspace]
-  flux_deploy_image_automation = true
 }

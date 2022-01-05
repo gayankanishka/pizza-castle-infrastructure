@@ -27,3 +27,31 @@ variable "eks_cluster_instance_types" {
     pizza-castle-prod    = "m5.large"
   }
 }
+
+variable "repository_name" {
+  type        = string
+  description = "The name of the infrastructure repository"
+  default     = "pizza-castle-flux-infrastructure"
+}
+
+variable "target_paths" {
+  type        = map(any)
+  description = "Flux sync target paths"
+  default = {
+    pizza-castle-dev     = "clusters/dev"
+    pizza-castle-staging = "clusters/staging"
+    pizza-castle-prod    = "clusters/prod"
+  }
+}
+
+variable "github_owner" {
+  type        = string
+  description = "The name of the github repo owner"
+  default     = "gayankanishka"
+}
+
+variable "github_token" {
+  type        = string
+  description = "The github access token"
+  default     = "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"
+}

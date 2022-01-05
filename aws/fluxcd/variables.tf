@@ -42,15 +42,3 @@ variable "branch" {
   type    = string
   default = "main"
 }
-
-variable "github_owner" {
-  type        = string
-  description = "The name of the github repo owner"
-  default     = "gayankanishka"
-}
-
-variable "github_token" {
-  type        = string
-  description = "The github access token"
-  default     = "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"
-}
