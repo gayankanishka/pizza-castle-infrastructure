@@ -32,12 +32,6 @@ variable "flux_deploy_image_automation" {
   description = "Optionally deploy the image automation controller with the gitops toolkit"
 }
 
-variable "repository_name" {
-  type        = string
-  description = "The name of the infrastructure repository"
-  default     = "pizza-castle-flux-infrastructure"
-}
-
 variable "branch" {
   type    = string
   default = "main"

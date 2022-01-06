@@ -52,6 +52,7 @@ module "fluxcd" {
   flux_git_url                 = "ssh://git@github.com/${var.github_owner}/${var.repository_name}.git"
   flux_git_path                = var.target_paths[terraform.workspace]
   flux_deploy_image_automation = true
+  repository_name              = var.repository_name
 
   depends_on = [
     module.eks_cluster.this,
