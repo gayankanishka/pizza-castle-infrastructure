@@ -1,7 +1,7 @@
 {
   "name": "pizza-castle-auth0",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is used to manage the auth0 tenants",
   "scripts": {
     "export:dev": "a0deploy export --strip --format yaml --output_folder src --config_file ./src/config/dev.json",
     "import:dev": "a0deploy import --input_file ./src/tenant.yaml --config_file ./src/config/dev.json",
@@ -10,18 +10,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gayankanishka/pizza-castle-auth0.git"
+    "url": "git+https://github.com/gayankanishka/pizza-castle-infrastructure.git"
   },
   "keywords": [
     "auth0",
     "node.js"
   ],
-  "author": "Gayan K",
+  "author": "Gayan K and Kajendran A",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gayankanishka/pizza-castle-auth0/issues"
+    "url": "https://github.com/gayankanishka/pizza-castle-infrastructure/issues"
   },
-  "homepage": "https://github.com/gayankanishka/pizza-castle-auth0#readme",
+  "homepage": "https://github.com/gayankanishka/pizza-castle-infrastructure/auth0#readme",
   "dependencies": {
     "auth0-deploy-cli": "^7.3.2"
   }
